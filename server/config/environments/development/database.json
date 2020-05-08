@@ -1,0 +1,20 @@
+{
+  "defaultConnection": "default",
+  "connections": {
+    "default": {
+      "connector": "mongoose",
+      "settings": {
+        "database": "server",
+        "host": ">@ecommerce-ei9wb.mongodb.net",
+        "srv": "true",
+        "port": "",
+        "username": "MahmoudAraby",
+        "password": "Engaro9j"
+      },
+      "options": {
+        "authenticationDatabase": "admin",
+        "ssl": true
+      }
+    }
+  }
+}
