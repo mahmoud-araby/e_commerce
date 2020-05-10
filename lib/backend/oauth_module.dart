@@ -8,6 +8,9 @@ enum OAuthType { Login, Register }
 class OAuth extends ChangeNotifier with Validator {
   User user = User();
   OAuthType oauthType = OAuthType.Login;
+  bool isLoading = false;
+  String status;
+
   String get email => user.username;
   Function(String) get setEmail => (value) => user.username = value;
   String get password => user.password;
@@ -32,13 +35,21 @@ class OAuth extends ChangeNotifier with Validator {
     return header;
   }
 
-  register() {
-    bool ret = false;
+  Future<Map<String, dynamic>> register() async {
+    isLoading = true;
+    notifyListeners();
+    Map<String, dynamic> ret;
     if (oauthType == OAuthType.Login) {
-      login();
+      ret = await login(user);
     } else if (oauthType == OAuthType.Register) {
-      signUp(user);
+      ret = await signUp(user);
     }
+    isLoading = false;
+    notifyListeners();
     return ret;
+  }
+
+  bool isBusy() {
+    return isLoading;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:Login/Screens/products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,9 +14,11 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => OAuth(),
       child: MaterialApp(
-        home: Scaffold(
-          body: LoginScreen(),
-        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginScreen(),
+          Products.id: (context) => Products()
+        },
       ),
     );
   }
