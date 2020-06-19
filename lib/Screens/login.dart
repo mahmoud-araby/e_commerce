@@ -1,4 +1,4 @@
-import 'package:Login/Screens/products.dart';
+import 'package:Login/Screens/products_screen.dart';
 import 'package:Login/backend/oauth_module.dart';
 import 'package:Login/component/password.dart';
 import 'package:Login/component/username.dart';
@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../constant.dart';
 
 class LoginScreen extends StatelessWidget {
+  static String id = '/login';
   final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -56,13 +57,12 @@ class LoginScreen extends StatelessWidget {
       return RaisedButton(
           color: Colors.blue,
           onPressed: () async {
-            bool ret;
             if (_loginKey.currentState.validate()) {
               _loginKey.currentState.save();
               bool key = await oauthEmail(context);
               print(key);
               if (key == true) {
-                Navigator.pushReplacementNamed(context, Products.id);
+                Navigator.pushReplacementNamed(context, ProductsScreen.id);
               }
             }
           },
@@ -75,15 +75,11 @@ class LoginScreen extends StatelessWidget {
   Future<bool> oauthEmail(BuildContext context) async {
     Map<String, dynamic> response =
         await Provider.of<OAuth>(context, listen: false).register();
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(seconds: 3),
-        backgroundColor: Colors.black,
-        content: Text(
-          response["message"],
-        ),
-      ),
-    );
+    print(response);
+//    _scaffoldKey.currentState.showSnackBar(SnackBar(
+//      content: Text(response['message']),
+//      duration: Duration(seconds: 2),
+//    ));
     return response["status"];
   }
 

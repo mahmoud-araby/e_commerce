@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Products extends StatelessWidget {
-  static String id = '/products';
+class Recepit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Container();
   }
 }

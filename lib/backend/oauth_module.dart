@@ -6,10 +6,13 @@ import 'Oauth/validators.dart';
 enum OAuthType { Login, Register }
 
 class OAuth extends ChangeNotifier with Validator {
+  OAuth() {
+    getRegistered();
+  }
+
   User user = User();
   OAuthType oauthType = OAuthType.Login;
   bool isLoading = false;
-  String status;
 
   String get email => user.username;
   Function(String) get setEmail => (value) => user.username = value;
@@ -47,6 +50,10 @@ class OAuth extends ChangeNotifier with Validator {
     isLoading = false;
     notifyListeners();
     return ret;
+  }
+
+  Future<void> signOut() async {
+    deleteRegistered();
   }
 
   bool isBusy() {
